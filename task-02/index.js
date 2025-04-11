@@ -163,14 +163,47 @@ const students = [
 
 function getSubjectsStatistics(students) {
   // თქვენი კოდი აქ
+  const grades = students.map((student) => {
+    const sumGrades = (student.grades.math +  student.grades.history + student.grades.physics) / 3;
+    return{
+      name: student.firstName,
+      avarge: sumGrades,
+    }
+  });
+  return grades;
 }
 
 function getHighAchievers(students, gradeThreshold) {
   // თქვენი კოდი აქ
+  const grades = students.filter((student) => 
+    (student.grades.math +  student.grades.history + student.grades.physics) / 3 > gradeThreshold
+  );
+  return grades.map((each) => {
+    return `${each.firstName} ${each.lastName}`;
+  });
 }
 
 function getMultiAchivers(students, threshold) {
   // თქვენი კოდი აქ
+  const count = students.map((student) => {
+    let amount = 0;
+    if(student.grades.math > threshold){
+      amount += 1;
+    }
+    if(student.grades.history > threshold){
+      amount += 1;
+    }
+    if(student.grades.physics > threshold){
+      amount += 1;
+    }
+    return {
+      name: `${student.firstName} ${student.lastName}`,
+      expertSubjects: amount
+    }
+  });
+  // return count;
+  const each = count.filter((amount) => amount.expertSubjects >= 2);
+  return each;
 }
 
 // ტესტები
