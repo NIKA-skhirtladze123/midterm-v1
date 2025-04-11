@@ -64,3 +64,38 @@ const users = [
     avatar: "https://fakeimg.pl/150x150",
   },
 ];
+
+const list = document.querySelector('.user-list');
+function createCard(name, email, avatar, id){
+  const div = document.createElement('div');
+  div.setAttribute('calss', 'card');
+  div.innerHTML = `
+     <div class="card-header">
+            <div class="user-info">
+              <div class="avatar">
+                <img src="${avatar}" alt="John Doe" />
+              </div>
+              <div class="user-details">
+                <h3>${name}</h3>
+                <p class="user-email">${email}</p>
+              </div>
+            </div>
+          </div>
+          <div class="card-content">
+            <p class="user-id">User ID: ${id}</p>
+          </div>
+  `
+  list.appendChild(div);
+}
+
+function displayCards(value){
+  users.filter((user) => user.name.includes(value)).map((user) => {
+    createCard(user.name, user.email, user.avatar, user.id);
+  })
+}
+
+const input = document.querySelector('.search-input');
+
+input.addEventListener('input', () => {
+  displayCards(input.value);
+});  
